@@ -1,0 +1,52 @@
+version: '2'
+
+services:
+  server:
+    image: getpix/pix
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongo:27017/pix
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      DATA_PATH: /mnt/data # used for storing thumbnails and some state files
+      PIX_URL: http://localhost:8080 # used for generating image urls
+    volumes:
+      - "pix_data:/mnt/data"
+    ports:
+      - "8080:80"
+    command: server
+
+  worker:
+    image: getpix/pix
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongo:27017/pix
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      DATA_PATH: /mnt/data
+      PIX_URL: http://localhost:8080 # used for generating image urls
+    volumes:
+      - "pix_data:/mnt/data"
+      # Add volume mount for your photo directory
+    command: worker
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017"
+    volumes:
+      - "mongo_data:/data/db"
+    command: mongod --smallfiles
+
+  redis:
+    image: redis
+    ports:
+      - "6379"
+
+volumes:
+  mongo_data:
+  pix_data:

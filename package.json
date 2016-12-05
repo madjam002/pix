@@ -1,0 +1,30 @@
+{
+  "name": "pix",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "author": "Jamie Greeff <jamie@greeff.me>",
+  "license": "AGPL",
+  "dependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.11.0",
+    "eslint-plugin-babel": "^3.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.11.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-react": "^6.7.1",
+    "eslint-plugin-react-native": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "eslintConfig": {
+    "rules": {
+      "react/jsx-max-props-per-line": 0,
+      "react/jsx-first-prop-new-line": 0,
+      "react/jsx-closing-bracket-location": 0
+    }
+  }
+}

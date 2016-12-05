@@ -1,0 +1,12 @@
+{
+  "presets": ["es2015", "stage-1", "react"],
+  "plugins": [
+    "transform-decorators-legacy",
+    ["module-alias", [
+      { "src": "./src/core", "expose": "core" },
+      { "src": "./src/controllers", "expose": "controllers" },
+      { "src": "./src/ui", "expose": "ui" },
+      { "src": "./src/core", "expose": "core" }
+    ]]
+  ],
+}

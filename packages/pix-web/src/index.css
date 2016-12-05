@@ -1,0 +1,26 @@
+body, html {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #182026;
+}
+
+body, #root {
+  flex: 1;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  image-orientation: from-image;
+}
+
+.pt-popover-content {
+  padding: 20px;
+}
