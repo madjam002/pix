@@ -30,7 +30,7 @@ After v1 roadmap
 Try Pix
 -------
 
-Pix is not working software and is not finished, but if you still want to give it a try, it's best to install Docker and Docker Compose, clone this repository and run `docker-compose up -d --no-build`. Then go to `http://localhost:8080` to give it a try. You can scale the `worker` service to spread indexing and thumbnail generation across multiple cores or servers.
+Pix is not working software and is not finished, but if you still want to give it a try, it's best to install Docker and Docker Compose, clone this repository and run `docker-compose pull` and `docker-compose up -d`. Then go to `http://localhost:8080` to give it a try. You can scale the `worker` service to spread indexing and thumbnail generation across multiple cores or servers.
 
 
 Building / running without Docker
