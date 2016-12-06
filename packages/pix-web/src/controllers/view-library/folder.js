@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import {compose} from 'recompose'
-import {withRouter} from 'react-router'
+import {withRouter, Link} from 'react-router'
 import {gql, connectGraph} from 'react-graphql'
 import {CollapsibleList, Classes, MenuItem} from 'ui'
 
@@ -9,11 +9,14 @@ import Gallery from './gallery'
 
 const renderBreadcrumb = props => {
   if (props.href != null) {
-    return <a className={Classes.BREADCRUMB}>{props.text}</a>
+    return <Link to={props.href} className={Classes.BREADCRUMB}>{props.text}</Link>
   } else {
     return <span className={cx(Classes.BREADCRUMB, Classes.BREADCRUMB_CURRENT)}>{props.text}</span>
   }
 }
+
+const buildBreadcrumbUrl = (pathParts, index, libraryId) =>
+  `/libraries/${libraryId}/${pathParts.slice(0, index + 1).join('/')}`
 
 export default compose(
   withRouter,
@@ -61,9 +64,9 @@ export default compose(
       renderVisibleItem={renderBreadcrumb}
       visibleItemCount={5}
     >
-      <MenuItem href="/" text={folder.library.name} />
+      <MenuItem href={`/libraries/${folder.library.id}`} text={folder.library.name} />
       {folder.path.split('/').map((pathPart, index) =>
-        <MenuItem key={index} href="/" text={pathPart} />
+        <MenuItem key={index} href={buildBreadcrumbUrl(folder.path.split('/'), index, folder.library.id)} text={pathPart} />
       )}
     </CollapsibleList>
 

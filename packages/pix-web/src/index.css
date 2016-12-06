@@ -21,6 +21,6 @@ img {
   image-orientation: from-image;
 }
 
-.pt-popover-content {
+.pt-popover:not(.pt-minimal) .pt-popover-content {
   padding: 20px;
 }

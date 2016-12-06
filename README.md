@@ -11,8 +11,8 @@ Ongoing discussion on the future of this project at https://www.reddit.com/r/sel
 Road to v1
 ----------
 
-- [ ] Add folders of photos as libraries into Pix
-- [ ] Basic viewing of folders with thumbnails
+- [x] Add folders of photos as libraries into Pix
+- [x] Basic viewing of folders with thumbnails
 - [ ] Detail lightbox view for viewing photos
 - [ ] Sorting photos by date and other sorting options
 - [ ] Ability to add multiple users with access controls
