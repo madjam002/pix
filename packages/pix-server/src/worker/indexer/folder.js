@@ -36,6 +36,15 @@ export async function ensureFoldersForPath(folderPath, libraryId) {
     return folder
   }
 
+  if (!existingFolder.nameLower) {
+    existingFolder.nameLower = existingFolder.name.toLowerCase()
+  }
+
+  if (existingFolder.isModified()) {
+    console.log('Updating folder', folderPath)
+    await existingFolder.save()
+  }
+
   return existingFolder
 }
 

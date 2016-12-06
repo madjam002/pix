@@ -59,8 +59,8 @@ import Folder from 'models/folder'
 import MediaItem from 'models/media-item'
 
 const generateItems = async (folder) => {
-  const folders = await Folder.find({ parent: folder._id })
-  const mediaItems = await MediaItem.find({ folder: folder._id })
+  const folders = await Folder.find({ parent: folder._id }).sort({ nameLower: 1 })
+  const mediaItems = await MediaItem.find({ folder: folder._id }).sort({ nameLower: 1 })
 
   folders.forEach(node => node.__type = 'Folder')
   mediaItems.forEach(node => node.__type = 'MediaItem')

@@ -22,16 +22,29 @@ export default async function processItem(payload) {
   } else {
     console.log('Checking', file)
 
+    if (!mediaItem.nameLower) {
+      mediaItem.nameLower = mediaItem.name.toLowerCase()
+    }
+
+    // check if fields are missing which requires rebuild of index for this photo
+    if (mediaItem.date === undefined) {
+      console.log('Rebuilding metadata for', file)
+      await rebuildMediaItem(mediaItem, fullPath)
+    }
+
     if (folder != null && mediaItem.folder !== folder._id) {
-      console.log('Updating folder for', file)
+      console.log('Updating parent folder for item', file)
       mediaItem.folder = folder._id
-      await mediaItem.save()
     }
 
     if (mediaItem.name !== name) {
       mediaItem.name = name
-      await mediaItem.save()
       console.log('Updated name for', file)
+    }
+
+    if (mediaItem.isModified()) {
+      console.log('Saving changes for', file)
+      await mediaItem.save()
     }
 
     // TODO check if file has changed
@@ -45,30 +58,55 @@ export default async function processItem(payload) {
   }
 }
 
-async function processNew(name, file, libraryId, fullPath, folder) {
+async function getMetaForFile(fullPath) {
   let meta
 
   try {
     meta = await sharp(fullPath).rotate().metadata()
   } catch (ex) {
     console.log('Failed opening', fullPath, ex.message)
-    return
+    return null
   }
 
-  const exif = meta.exif != null ? parseExif(meta.exif) : {}
+  const exif = meta.exif != null ? parseExif(meta.exif) : null
+
+  if (exif) {
+    delete exif.Padding
+  }
+
+  const date = exif != null && exif.exif != null && exif.exif.DateTimeOriginal != null
+    ? exif.exif.DateTimeOriginal
+    : null
 
   const size = imageSize(meta, exif)
 
-  const metaForDb = {
+  return {
     width: size.width,
     height: size.height,
     format: meta.format,
     aspectRatio: size.height / size.width,
     color: await genImageColour(fullPath),
+    date,
+    exif,
   }
+}
 
-  const mediaItem = new MediaItem({ name, path: file, library: libraryId, ...metaForDb, folder: folder != null ? folder._id : null })
+async function processNew(name, file, libraryId, fullPath, folder) {
+  const metaForDb = await getMetaForFile(fullPath)
+
+  if (!metaForDb) return null
+
+  const nameLower = name.toLowerCase()
+
+  const mediaItem = new MediaItem({ name, nameLower, path: file, library: libraryId, ...metaForDb, folder: folder != null ? folder._id : null })
   await mediaItem.save()
 
   return mediaItem
+}
+
+async function rebuildMediaItem(mediaItem, fullPath) {
+  const metaForDb = await getMetaForFile(fullPath)
+
+  // overwrite existing metadata
+  Object.assign(mediaItem, metaForDb)
 }
