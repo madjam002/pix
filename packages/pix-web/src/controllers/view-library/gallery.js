@@ -107,6 +107,8 @@ class Thumbnail extends React.PureComponent {
         <MenuItem text="View" iconName="pt-icon-maximize" />
         <MenuItem text="Select" iconName="pt-icon-tick" />
         <MenuDivider />
+        <MenuItem text="Download" iconName="pt-icon-cloud-download" href={`/download?id=${this.props.id}`} />
+        <MenuDivider />
         <MenuItem text="Delete" iconName="pt-icon-trash" />
       </Menu>
     )

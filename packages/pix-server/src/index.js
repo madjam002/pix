@@ -66,6 +66,8 @@ app.post('/api/create-admin-account', async (req, res) => {
   })
 })
 
+app.get('/download', require('./routes/download').default)
+
 app.use('/graph', graphQLHTTP({
   schema,
   graphiql: true,

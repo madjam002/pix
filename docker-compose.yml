@@ -14,6 +14,7 @@ services:
       PIX_URL: http://localhost:8080 # used for generating image urls
     volumes:
       - "pix_data:/mnt/data"
+      # Add volume mount for your photo directory
     ports:
       - "8080:80"
     command: server
