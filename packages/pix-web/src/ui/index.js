@@ -1,6 +1,5 @@
 import React from 'react'
-import cx from 'classnames'
-import {InputGroup} from '@blueprintjs/core'
+import {InputGroup, Spinner} from '@blueprintjs/core'
 
 import styles from './index.less'
 
@@ -25,4 +24,10 @@ export const FormGroup = ({ meta, ...props }) => (
     {props.input}
     {meta.touched && ((meta.error && <span className="pt-intent-danger">{meta.error}</span>) || (meta.warning && <span>{meta.warning}</span>))}
   </label>
+)
+
+export const LoadingScreen = () => (
+  <div className={styles.loading}>
+    <Spinner />
+  </div>
 )

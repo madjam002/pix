@@ -24,6 +24,7 @@ export default compose(
         }
       }
     `,
+    renderOutdated: true,
   }),
 )(props => (
   <div className={styles.container}>

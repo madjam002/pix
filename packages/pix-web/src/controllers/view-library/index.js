@@ -39,6 +39,8 @@ export default compose(
     variables: props => ({
       libraryId: props.params.libraryId,
     }),
+    renderOutdated: true,
+    refetchOnMount: true,
   }),
 )(({ library, params }) => (
   <div>

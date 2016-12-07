@@ -26,6 +26,10 @@ export default async function processItem(payload) {
       mediaItem.nameLower = mediaItem.name.toLowerCase()
     }
 
+    if (!mediaItem.filename) {
+      mediaItem.filename = path.basename(file)
+    }
+
     // check if fields are missing which requires rebuild of index for this photo
     if (mediaItem.date === undefined) {
       console.log('Rebuilding metadata for', file)
@@ -97,8 +101,9 @@ async function processNew(name, file, libraryId, fullPath, folder) {
   if (!metaForDb) return null
 
   const nameLower = name.toLowerCase()
+  const filename = path.basename(file)
 
-  const mediaItem = new MediaItem({ name, nameLower, path: file, library: libraryId, ...metaForDb, folder: folder != null ? folder._id : null })
+  const mediaItem = new MediaItem({ name, nameLower, filename, path: file, library: libraryId, ...metaForDb, folder: folder != null ? folder._id : null })
   await mediaItem.save()
 
   return mediaItem

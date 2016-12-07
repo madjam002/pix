@@ -55,6 +55,8 @@ export default compose(
       libraryId: props.params.libraryId,
       path: props.params.splat,
     }),
+    renderOutdated: true,
+    refetchOnMount: true,
   }),
 )(({ folderByPath: folder, params }) => (
   <div>

@@ -15,6 +15,7 @@ export default connectGraph({
       }
     }
   `,
+  renderOutdated: true,
 })(props => (
   <div>
     <nav className="pt-navbar pt-fixed-top pt-dark">

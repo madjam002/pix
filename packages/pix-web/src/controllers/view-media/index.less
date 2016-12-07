@@ -1,0 +1,92 @@
+.lightbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #10161A;
+  padding: 25px;
+  display: flex;
+}
+
+.imageContent {
+  flex: 1;
+  position: relative;
+
+  .navigationControls {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-size: 52px !important;
+      cursor: pointer;
+    }
+  }
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.sidebar {
+  width: 400px;
+  background-color: #182026;
+  padding: 25px;
+
+  .sidebarHeader {
+    margin-bottom: 30px;
+  }
+
+  .imageTitle {
+    margin-bottom: 3px;
+  }
+
+  .imageDate {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.infoTable {
+  td, th {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  th {
+    padding-right: 10px;
+    text-align: left;
+    min-width: 100px;
+  }
+
+  td {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.map {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}

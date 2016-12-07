@@ -10,6 +10,7 @@ import ViewLibraryController from './controllers/view-library'
 import ViewLibraryFolderController from './controllers/view-library/folder'
 import LoginController from './controllers/login'
 import HomeController from './controllers/home'
+import ViewMediaController from './controllers/view-media'
 
 export default connectGraph({
   query: () => gql`
@@ -34,7 +35,8 @@ export default connectGraph({
   } else if (props.viewer.user) {
     routes = [
       <Redirect key={0} from="/" to="/libraries" />,
-      <Route key={1} path="/" component={App}>
+      <Route key={1} path="/view/:mediaId" component={ViewMediaController} />,
+      <Route key={2} path="/" component={App}>
         <Redirect from="login" to="libraries" />,
         <Redirect from="first-run" to="libraries" />,
         <Route path="libraries" component={LibrariesController}>

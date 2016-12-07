@@ -17,10 +17,6 @@ body, #root {
   flex-direction: column;
 }
 
-img {
-  image-orientation: from-image;
-}
-
 .pt-popover:not(.pt-minimal) .pt-popover-content {
   padding: 20px;
 }

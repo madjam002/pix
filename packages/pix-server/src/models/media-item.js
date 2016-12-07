@@ -4,6 +4,7 @@ export default mongoose.model('MediaItem', {
 
   name: { type: String, required: true },
   nameLower: { type: String, required: true },
+  filename: { type: String, required: true },
   path: { type: String, required: true },
   checksum: String,
   width: { type: Number, required: true },

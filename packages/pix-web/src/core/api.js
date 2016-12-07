@@ -1,9 +1,10 @@
 import React from 'react'
 import {createGraphQLContext} from 'react-graphql'
 import {print} from 'graphql-tag/printer'
+import {LoadingScreen} from 'ui'
 
 const context = createGraphQLContext({
-  defaultRenderLoading: props => <div>Loading</div>,
+  defaultRenderLoading: props => <LoadingScreen />,
   defaultRenderError: props => <div>An error has occurred</div>,
   async executeQuery(queryObj, variables) {
     return await runQuery(queryObj, variables)

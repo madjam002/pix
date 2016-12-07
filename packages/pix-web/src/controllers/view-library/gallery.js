@@ -12,7 +12,7 @@ export default class extends React.PureComponent {
 
     this.rows = []
     this.rowCoordinates = []
-    this.totalHeight = 0
+    this.totalHeight = 10000
   }
 
   componentDidMount() {
@@ -27,14 +27,12 @@ export default class extends React.PureComponent {
   calculate(props) {
     const media = props.items.map(item => ({
       ...item,
-      url: `/libraries/${props.libraryId}/${item.path}`,
+      url: item.__typename === 'Folder' ? `/libraries/${props.libraryId}/${item.path}` : `/view/${item.id}`,
       color: item.color || '#202B33',
       width: item.width || 100,
       height: item.height || 100,
       thumbnail: item.thumbnail,
     }))
-
-    console.log('Got', this.refs.container.scrollWidth)
 
     this.rows = toViewportSize(this.refs.container.scrollWidth, calculateLayout(media))
 
@@ -118,7 +116,7 @@ class Thumbnail extends React.PureComponent {
     const props = this.props
 
     return (
-      <Link to={props.url}>
+      <Link to={{ pathname: props.url, state: { fromGallery: true } }}>
         <div style={{ ...styles.thumb, width: props.width, height: props.height, backgroundColor: props.color, backgroundImage: `url(${props.thumbnail})` }}>
           {props.item.__typename === 'Folder' && (
             <div style={styles.thumbnailTitleContainer}>{props.item.name}</div>

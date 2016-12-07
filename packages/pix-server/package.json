@@ -31,6 +31,7 @@
     "invariant": "^2.2.2",
     "jimp": "^0.2.27",
     "kue": "^0.11.5",
+    "lodash": "^4.17.2",
     "mkdirp-promise": "^4.0.1",
     "mongoose": "^4.7.0",
     "passport": "^0.3.2",
