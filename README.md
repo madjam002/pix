@@ -13,7 +13,7 @@ Road to v1
 
 - [x] Add folders of photos as libraries into Pix
 - [x] Basic viewing of folders with thumbnails
-- [ ] Detail lightbox view for viewing photos
+- [x] Detail lightbox view for viewing photos
 - [ ] Sorting photos by date and other sorting options
 - [ ] Ability to add multiple users with access controls
 - [ ] Responsive web frontend which works on mobile
