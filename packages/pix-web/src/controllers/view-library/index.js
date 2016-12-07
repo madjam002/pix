@@ -1,6 +1,6 @@
 import React from 'react'
 import {compose} from 'recompose'
-import {withRouter} from 'react-router'
+import {withRouter, Link} from 'react-router'
 import {gql, connectGraph} from 'react-graphql'
 import {Button} from 'ui'
 
@@ -47,6 +47,7 @@ export default compose(
     <h1>{library.name}</h1>
 
     <Button onClick={actions.indexLibrary.bind(null, library.id)} text="Index" />
+    <Link to={`/libraries/${library.id}/settings`}><Button text="Settings" /></Link>
 
     <Gallery items={library.items} libraryId={library.id} />
   </div>

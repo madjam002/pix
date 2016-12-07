@@ -70,6 +70,7 @@ const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     createLibrary: require('./mutations/create-library').default,
+    editLibrary: require('./mutations/edit-library').default,
   }),
 })
 

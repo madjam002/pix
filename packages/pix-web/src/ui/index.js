@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import {InputGroup, Spinner} from '@blueprintjs/core'
 
 import styles from './index.less'
@@ -29,5 +30,30 @@ export const FormGroup = ({ meta, ...props }) => (
 export const LoadingScreen = () => (
   <div className={styles.loading}>
     <Spinner />
+  </div>
+)
+
+export const SideBySide = props => (
+  <div className={styles.sideBySide} style={{ alignItems: props.align }}>
+    {props.children}
+  </div>
+)
+
+export const ContentWithRight = props => (
+  <div className={styles.sideBySide} style={{ alignItems: props.align }}>
+    <div className={styles.fill}>{props.content}</div>
+    <div>{props.right}</div>
+  </div>
+)
+
+export const SegmentedRows = props => (
+  <div className={cx(styles.segmentedRows, props.pad && styles.padVertical)}>
+    {props.children}
+  </div>
+)
+
+export const FixedWidth = props => (
+  <div style={{ width: props.width }}>
+    {props.children}
   </div>
 )

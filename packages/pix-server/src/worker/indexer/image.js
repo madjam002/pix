@@ -46,3 +46,14 @@ export async function genThumbnail(fullPath, mediaItem, size) {
     }
   }
 }
+
+export async function cleanThumbnails(mediaItem) {
+  await removeThumbnail(mediaItem, 'small')
+  await removeThumbnail(mediaItem, 'medium')
+  console.log('Removed thumbnails for', mediaItem.path)
+}
+
+export async function removeThumbnail(mediaItem, size) {
+  const thumbPath = path.join(config.dataPath, 'thumbnails', `${mediaItem._id.toString()}_${size}.jpg`)
+  await fs.unlink(thumbPath)
+}

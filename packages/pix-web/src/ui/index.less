@@ -9,3 +9,27 @@ form {
   justify-content: center;
   flex: 1;
 }
+
+.sideBySide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  > *:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.fill {
+  flex: 1;
+}
+
+.segmentedRows {
+  > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.padVertical {
+  padding: 10px 0;
+}

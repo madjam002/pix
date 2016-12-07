@@ -7,7 +7,10 @@ import config from '../config'
 
 mongoose.connect(config.mongoUri)
 
-process.on('unhandledRejection', ex => console.error(ex.stack))
+process.on('unhandledRejection', ex => {
+  console.error(ex.stack)
+  process.exit()
+})
 
 function wrap(fn) {
   return function (job, done) {

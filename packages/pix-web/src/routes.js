@@ -11,6 +11,7 @@ import ViewLibraryFolderController from './controllers/view-library/folder'
 import LoginController from './controllers/login'
 import HomeController from './controllers/home'
 import ViewMediaController from './controllers/view-media'
+import LibrarySettingsController from './controllers/library-settings'
 
 export default connectGraph({
   query: () => gql`
@@ -43,6 +44,7 @@ export default connectGraph({
           <IndexRoute component={HomeController} />
           <Route path="add" component={AddLibraryController} />
           <Route path=":libraryId" component={ViewLibraryController} />
+          <Route path=":libraryId/settings" component={LibrarySettingsController} />
           <Route path=":libraryId/*" component={ViewLibraryFolderController} />
         </Route>
       </Route>,

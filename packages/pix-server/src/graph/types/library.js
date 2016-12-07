@@ -22,6 +22,10 @@ const LibraryType = new GraphQLObjectType({
       type: new GraphQLList(LibraryItemInterface),
       resolve: library => generateItems(library),
     },
+
+    ignorePatterns: {
+      type: new GraphQLList(GraphQLString),
+    },
   }),
 })
 
