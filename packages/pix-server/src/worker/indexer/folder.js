@@ -26,6 +26,7 @@ export async function ensureFoldersForPath(folderPath, libraryId) {
         path: folderPath,
         library: libraryId,
         name,
+        nameLower: name.toLowerCase(),
         parent: parentFolder != null ? parentFolder._id : null,
       },
       { upsert: true, new: true },
