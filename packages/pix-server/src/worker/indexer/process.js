@@ -2,42 +2,25 @@ import sharp from 'sharp'
 import parseExif from 'exif-reader'
 import path from 'path'
 import {imageSize} from './util'
-import {genThumbnail, genImageColour, cleanThumbnails} from './image'
+import {genThumbnail, genImageColour} from './image'
 import {ensureFoldersForPath, ensureFoldersHaveCover} from './folder'
 
 import MediaItem from 'models/media-item'
 
 export default async function processItem(payload) {
-  const { name, file, path: fullPath, libraryId, ignorePatterns } = payload
+  const { name, file, path: fullPath, libraryId } = payload
 
   let mediaItem = await MediaItem.findOne({ path: file, library: libraryId })
-  let folder
 
   const folderPath = path.dirname(file)
-  const matchesIgnoreFilter = checkIfIgnored(file, ignorePatterns)
+  const folder = await ensureFoldersForPath(folderPath, libraryId)
 
   if (!mediaItem) {
-    if (matchesIgnoreFilter) {
-      console.log('Ignoring', file)
-      return
-    }
-
-    folder = await ensureFoldersForPath(folderPath, libraryId)
-
     console.log('Processing new item', file)
 
     mediaItem = await processNew(name, file, libraryId, fullPath, folder)
   } else {
     console.log('Checking', file)
-
-    folder = await ensureFoldersForPath(folderPath, libraryId)
-
-    if (matchesIgnoreFilter) {
-      console.log('Removing due to ignored', file)
-      await cleanThumbnails(mediaItem)
-      await mediaItem.remove()
-      return
-    }
 
     if (!mediaItem.nameLower) {
       mediaItem.nameLower = mediaItem.name.toLowerCase()
@@ -131,14 +114,4 @@ async function rebuildMediaItem(mediaItem, fullPath) {
 
   // overwrite existing metadata
   Object.assign(mediaItem, metaForDb)
-}
-
-function checkIfIgnored(filePath, ignorePatterns) {
-  for (const pattern of ignorePatterns) {
-    if (filePath.match(new RegExp(pattern))) {
-      return true
-    }
-  }
-
-  return false
 }

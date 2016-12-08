@@ -5,6 +5,7 @@ import kue from 'service/kue'
 import Bluebird from 'bluebird'
 import Folder from 'models/folder'
 import MediaItem from 'models/media-item'
+import {cleanThumbnails} from './image'
 
 export default async function indexLibrary(libraryId, job) {
   const library = await Library.findById(libraryId)
@@ -12,7 +13,8 @@ export default async function indexLibrary(libraryId, job) {
 
   console.log('Indexing', libraryPath)
 
-  const files = await glob('**/*.*', { cwd: libraryPath })
+  const files = (await glob('**/*.*', { cwd: libraryPath }))
+  .filter(file => !checkIfIgnored(file, library.ignorePatterns))
 
   console.log('Got', files.length, 'photos')
 
@@ -23,7 +25,7 @@ export default async function indexLibrary(libraryId, job) {
     const fullPath = path.join(libraryPath, file)
     const name = path.basename(file, path.extname(file))
 
-    const itemJob = await kue.create('library:process:item', { name, file, path: fullPath, libraryId, ignorePatterns: library.ignorePatterns })
+    const itemJob = await kue.create('library:process:item', { name, file, path: fullPath, libraryId })
     await itemJob.saveAsync()
 
     await new Promise(resolve => {
@@ -34,6 +36,10 @@ export default async function indexLibrary(libraryId, job) {
     job.progress(++numComplete, total, { currentName: file })
     console.log('Complete', numComplete, 'left', total - numComplete)
   }, { concurrency: 100 })
+
+  console.log('Cleaning removed files')
+
+  await cleanRemovedFiles(library, files)
 
   console.log('Cleaning empty folders')
 
@@ -63,4 +69,30 @@ async function removeEmptyFolders(library, parent) {
       return
     }
   }, { concurrency: 20 })
+}
+
+async function cleanRemovedFiles(library, files) {
+  const cursor = MediaItem.find({ library: library._id }).cursor()
+
+  while (true) {
+    const mediaItem = await cursor.next()
+    if (!mediaItem) break
+
+    if (!files.includes(mediaItem.path)) {
+      // remove media item
+      console.log('Removing due to missing/ignored file', mediaItem.path)
+      await cleanThumbnails(mediaItem)
+      await mediaItem.remove()
+    }
+  }
+}
+
+function checkIfIgnored(filePath, ignorePatterns) {
+  for (const pattern of ignorePatterns) {
+    if (filePath.match(new RegExp(pattern))) {
+      return true
+    }
+  }
+
+  return false
 }
