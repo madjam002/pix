@@ -30,8 +30,24 @@ After v1 roadmap
 Try Pix
 -------
 
-Pix is not working software and is not finished, but if you still want to give it a try, it's best to install Docker and Docker Compose, clone this repository and run `docker-compose pull` and `docker-compose up -d`. Then go to `http://localhost:8080` to give it a try. You can scale the `worker` service to spread indexing and thumbnail generation across multiple cores or servers.
+Pix is not working software and is not finished, but if you still want to give it a try, it's best to install Docker and Docker Compose.
 
+1. Get Docker Compose: https://docs.docker.com/compose/install/
+2. Clone this repository: `git clone https://github.com/madjam002/pix.git`
+3. Run `docker-compose pull` 
+4. Use your favorite text editing tool to change the following values in the docker-compose.yml file
+  1. Volume Mounts:
+    In the `server` and `worker` section add a mount for your photos:
+    
+      ```
+      volumes:
+      - "pix_data:/mnt/data"
+      - "/YOURPHOTOSLOCATION:/YOURPHOTOSLOCATION"
+      ```
+      
+  2. Specify the IP address/domain you are running the server in the `PIX_URL:` section of the `worker` and `server`
+5. Run `docker-compose up -d`
+6. Then go to `http://localhost:8080` to give it a try. You can scale the `worker` service to spread indexing and thumbnail generation across multiple cores or servers.
 
 Building / running without Docker
 --------
