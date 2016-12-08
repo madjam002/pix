@@ -54,6 +54,18 @@ export const IndexJob = connectGraph({
       className={cx(job.progress != null && 'pt-no-stripes')}
       intent={Intent.PRIMARY}
     />
-    {job.progressData && <div className={cx('pt-text-muted', styles.jobStatus)}>Processing {job.progressData.currentName}</div>}
+    {job.progressData != null && renderJobText(job.progressData) != null && (
+      <div className={cx('pt-text-muted', styles.jobStatus)}>{renderJobText(job.progressData)}</div>
+    )}
   </li>
 ))
+
+const renderJobText = data => {
+  if (data.currentName != null) {
+    return `Processing ${data.currentName}`
+  } else if (data.cleaning) {
+    return 'Cleaning up'
+  }
+
+  return null
+}

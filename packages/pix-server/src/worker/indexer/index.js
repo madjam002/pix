@@ -37,6 +37,8 @@ export default async function indexLibrary(libraryId, job) {
     console.log('Complete', numComplete, 'left', total - numComplete)
   }, { concurrency: 100 })
 
+  job.progress(numComplete, total, { currentName: null, cleaning: true })
+
   console.log('Cleaning removed files')
 
   await cleanRemovedFiles(library, files)
@@ -44,6 +46,10 @@ export default async function indexLibrary(libraryId, job) {
   console.log('Cleaning empty folders')
 
   await removeEmptyFolders(library, null)
+
+  console.log('Checking broken cover photos')
+
+  await checkBrokenCovers(library)
 
   console.log('Done')
 }
@@ -85,6 +91,39 @@ async function cleanRemovedFiles(library, files) {
       await mediaItem.remove()
     }
   }
+}
+
+async function checkBrokenCovers(library) {
+  const cursor = Folder.find({ library: library._id }).cursor()
+
+  while (true) {
+    const folder = await cursor.next()
+    if (!folder) break
+
+    const coverMediaItem = await MediaItem.findById(folder.cover)
+
+    if (!coverMediaItem || !folder.cover) {
+      const newCover = await recursivelyFindFirstMediaItemIn(library, folder._id)
+      if (!newCover) continue
+
+      folder.cover = newCover._id
+      await folder.save()
+      console.log('Fixed cover for', folder.path)
+    }
+  }
+}
+
+async function recursivelyFindFirstMediaItemIn(library, parentFolderId) {
+  const mediaItem = await MediaItem.findOne({ library: library._id, folder: parentFolderId })
+
+  if (!mediaItem) {
+    const folder = await Folder.findOne({ library: library._id, parent: parentFolderId })
+    if (!folder) return null
+
+    return await recursivelyFindFirstMediaItemIn(library, folder._id)
+  }
+
+  return mediaItem
 }
 
 function checkIfIgnored(filePath, ignorePatterns) {
