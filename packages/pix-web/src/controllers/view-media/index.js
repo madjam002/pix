@@ -55,6 +55,15 @@ class extends React.PureComponent {
     : this.props.router.push(`/libraries/${this.props.item.library.id}/${this.props.item.folder.path}`)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.item.id !== this.props.item.id) {
+      const timeSinceImageChange = Date.now() - this.lastImageChange
+      this.shouldDelayFullImageRender = timeSinceImageChange < 300
+
+      this.lastImageChange = Date.now()
+    }
+  }
+
   render() {
     const { item } = this.props
     const exif = item.exif || {}
@@ -78,7 +87,7 @@ class extends React.PureComponent {
             <img src={item.thumbnail} className={styles.image} width={item.width} height={item.height} />
           </div>
           {/* Full image (delay so that we don't render if user is quickly scrubbing through photos) */}
-          <DelayedFullImageRenderer src={`/full-img?id=${item.id}`} />
+          <DelayedFullImageRenderer src={`/full-img?id=${item.id}`} ignoreDelay={!this.shouldDelayFullImageRender} />
 
           <div className={styles.navigationControls}>
             {item.previous != null ? (
@@ -183,13 +192,13 @@ class DelayedFullImageRenderer extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { shouldRender: false }
+    this.state = { shouldRender: props.ignoreDelay }
   }
 
   componentDidMount() {
-    // TODO look at whether the user is scrubbing quickly or just going one by one through photos
-    // to intelligently change this delay until rendering full image
-    this.timeout = setTimeout(() => this.setState({ shouldRender: true }), 50) // eslint-disable-line
+    if (!this.props.ignoreDelay) {
+      this.timeout = setTimeout(() => this.setState({ shouldRender: true }), 50) // eslint-disable-line
+    }
   }
 
   componentWillUnmount() {
