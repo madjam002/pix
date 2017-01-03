@@ -1,5 +1,7 @@
 import React from 'react'
 import {gql, connectGraph} from 'react-graphql'
+import {Button} from 'ui'
+import {Link} from 'react-router'
 
 import {JobsPopoverMenuItem} from 'controllers/jobs-popover'
 
@@ -12,6 +14,7 @@ export default connectGraph({
           id
           username
         }
+        isAdmin
       }
     }
   `,
@@ -20,10 +23,13 @@ export default connectGraph({
   <div>
     <nav className="pt-navbar pt-fixed-top pt-dark">
       <div className="pt-navbar-group pt-align-left">
-        <div className="pt-navbar-heading">Pix</div>
+        <div className="pt-navbar-heading">
+          <Link to="/">Pix</Link>
+        </div>
       </div>
       <div className="pt-navbar-group pt-align-right">
         <button className="pt-button pt-minimal pt-icon-user">{props.viewer.user.username}</button>
+        {props.viewer.isAdmin && <Link to="/admin"><Button className="pt-minimal" iconName="wrench" text="Admin panel" /></Link>}
         <JobsPopoverMenuItem />
       </div>
     </nav>

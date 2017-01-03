@@ -12,6 +12,7 @@ import LoginController from './controllers/login'
 import HomeController from './controllers/home'
 import ViewMediaController from './controllers/view-media'
 import LibrarySettingsController from './controllers/library-settings'
+import AdminController from './controllers/admin'
 
 export default connectGraph({
   query: () => gql`
@@ -47,6 +48,7 @@ export default connectGraph({
           <Route path=":libraryId/settings" component={LibrarySettingsController} />
           <Route path=":libraryId/*" component={ViewLibraryFolderController} />
         </Route>
+        <Route path="admin" component={AdminController} />,
       </Route>,
     ]
   } else {

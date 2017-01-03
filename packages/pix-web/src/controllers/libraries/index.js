@@ -21,6 +21,7 @@ export default compose(
             id
             name
           }
+          isAdmin
         }
       }
     `,
@@ -60,7 +61,7 @@ const genSidebar = props => [
         href: `/libraries/${library.id}`,
         isSelected: props.router.isActive(`/libraries/${library.id}`, true),
       })),
-      {
+      props.viewer.isAdmin && {
         iconName: 'pt-icon-plus',
         label: 'Add new library',
         href: '/libraries/add',

@@ -1,9 +1,13 @@
-import {GraphQLObjectType, GraphQLSchema, GraphQLBoolean, GraphQLNonNull, GraphQLID, GraphQLString} from 'graphql'
+import {GraphQLObjectType, GraphQLSchema, GraphQLBoolean, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLList} from 'graphql'
 import {idFromGlobalId} from 'core/id'
+import {guardFieldAdmin} from './guard'
 import {nodeField} from './interfaces/node'
 import ViewerType from './types/viewer'
 import {getState} from '../state'
 
+import UserType from './types/user'
+
+import User from 'models/user'
 import Folder from 'models/folder'
 
 import nodeResolver from './resolvers/node'
@@ -29,6 +33,11 @@ const query = new GraphQLObjectType({
     isFirstRun: {
       type: GraphQLBoolean,
       resolve: async () => (await getState()).firstRun,
+    },
+
+    users: {
+      type: new GraphQLList(UserType),
+      resolve: guardFieldAdmin(() => User.find()),
     },
 
     user: {
@@ -71,6 +80,7 @@ const mutation = new GraphQLObjectType({
   fields: () => ({
     createLibrary: require('./mutations/create-library').default,
     editLibrary: require('./mutations/edit-library').default,
+    createUser: require('./mutations/create-user').default,
   }),
 })
 

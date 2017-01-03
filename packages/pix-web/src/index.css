@@ -20,3 +20,11 @@ body, #root {
 .pt-popover:not(.pt-minimal) .pt-popover-content {
   padding: 20px;
 }
+
+a {
+  color: #f5f8fa !important;
+}
+
+table {
+  width: 100%;
+}

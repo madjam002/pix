@@ -1,5 +1,6 @@
 import UserModel from 'models/user'
 import LibraryModel from 'models/library'
+import FolderModel from 'models/folder'
 import MediaItemModel from 'models/media-item'
 
 const map = {
@@ -10,6 +11,10 @@ const map = {
   Library: {
     Model: LibraryModel,
     Type: require('./types/library').default,
+  },
+  Folder: {
+    Model: FolderModel,
+    Type: require('./types/folder').default,
   },
   MediaItem: {
     Model: MediaItemModel,
