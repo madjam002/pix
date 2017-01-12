@@ -1,15 +1,13 @@
-import fs from 'fs-promise'
-import path from 'path'
-import config from './config'
+import State from './models/state'
 
-const statePath = path.join(config.dataPath, 'app.json')
+const initialAppState = {
+  firstRun: true,
+}
 
 export async function getState() {
-  return JSON.parse(await fs.readFile(statePath))
+  return (await State.findOne({})) || initialAppState
 }
 
 export async function writeState(state) {
-  const oldState = await getState()
-
-  await fs.writeFile(statePath, JSON.stringify({ ...oldState, ...state }))
+  await State.findOneAndUpdate({}, state, { upsert: true })
 }
