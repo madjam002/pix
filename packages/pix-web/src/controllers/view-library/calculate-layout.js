@@ -29,11 +29,27 @@ SOFTWARE.
 
  */
 
-export default media => {
+const BREAKPOINTS = {
+  '600': 600,
+  '1000': 1000,
+  '1500': 1500,
+  '2200': 2200,
+}
+
+const breakpointSizes = Object.keys(BREAKPOINTS).map(sizeString => Number(sizeString))
+
+export default (media, width) => {
   const border = 4
   const rowHeight = 200
   const maxRowHeight = 350
-  const w = 1250 // TODO breakpoints fixed viewport width
+  let w = 1250 // starting size
+
+  for (const breakpointSize of breakpointSizes) {
+    if (width < breakpointSize) {
+      w = BREAKPOINTS[breakpointSize.toString()]
+      break
+    }
+  }
 
   var ws = [],
       rowNum = 0,

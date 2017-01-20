@@ -18,10 +18,16 @@ export default class extends React.PureComponent {
   componentDidMount() {
     this.calculate(this.props)
     document.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
   }
 
   componentWillReceiveProps(nextProps) {
     this.calculate(nextProps)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   }
 
   calculate(props) {
@@ -34,28 +40,25 @@ export default class extends React.PureComponent {
       thumbnail: item.thumbnail,
     }))
 
-    this.rows = toViewportSize(this.refs.container.scrollWidth, calculateLayout(media))
+    this.rows = toViewportSize(this.refs.container.scrollWidth, calculateLayout(media, this.refs.container.scrollWidth))
 
     this.rowCoordinates = []
 
     this.totalHeight = this.rows.reduce((currHeight, row) => {
       this.rowCoordinates.push(currHeight)
-      if (row.items[0])
+      if (row.items[0]) {
         return currHeight + row.items[0].height + 4
+      }
       return currHeight
     }, 0)
 
     this.forceUpdate()
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll)
-  }
-
   handleScroll() {
     const offset = document.body.scrollTop
 
-    let rowIndex = 0, rowOffset = 0
+    let rowIndex = 0
 
     for (let i = 0; i < this.rowCoordinates.length; i++) {
       if (this.rowCoordinates[i] > offset) {
@@ -64,7 +67,12 @@ export default class extends React.PureComponent {
       }
     }
 
-    this.setState({ rowToRender: rowIndex })
+    this.setState({ rowToRender: rowIndex }) // eslint-disable-line
+  }
+
+  handleResize = () => {
+    this.calculate(this.props)
+    this.forceUpdate()
   }
 
   renderRows(offset) {
@@ -87,10 +95,10 @@ export default class extends React.PureComponent {
   }
 
   render() {
-    const rows = this.rows
+    const style = { position: 'relative', height: this.totalHeight }
 
     return (
-      <div ref="container" className="container" style={{ position: 'relative', height: this.totalHeight }}>
+      <div ref="container" className="container" style={style}>
         {this.renderRows(this.state.rowToRender)}
       </div>
     )
