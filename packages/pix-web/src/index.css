@@ -28,3 +28,13 @@ a {
 table {
   width: 100%;
 }
+
+.pt-dark .pt-input {
+  background: rgba(16, 22, 26, 0.64) !important;
+}
+
+/* reset margins on blueprint js components */
+.pt-input, .pt-label, hr {
+  margin: 0 !important;
+}
+

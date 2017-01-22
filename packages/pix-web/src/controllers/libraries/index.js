@@ -2,9 +2,7 @@ import React from 'react'
 import {compose} from 'recompose'
 import {withRouter} from 'react-router'
 import {gql, connectGraph} from 'react-graphql'
-import {Tree} from 'ui'
-
-import styles from './index.less'
+import {Tree, PageWithSidebar} from 'ui'
 
 export default compose(
   withRouter,
@@ -28,18 +26,17 @@ export default compose(
     renderOutdated: true,
   }),
 )(props => (
-  <div className={styles.container}>
-    <div className={styles.sidebar}>
+  <PageWithSidebar
+    sidebar={
       <Tree
         contents={genSidebar(props)}
         onNodeClick={handleNodeClick.bind(null, props.router)}
       />
-    </div>
-
-    <div className={styles.main}>
-      {props.children}
-    </div>
-  </div>
+    }
+    page={
+      props.children
+    }
+  />
 ))
 
 const handleNodeClick = (router, node) => {

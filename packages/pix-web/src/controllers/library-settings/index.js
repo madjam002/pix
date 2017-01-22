@@ -1,9 +1,9 @@
 import React from 'react'
 import {compose} from 'recompose'
 import {withRouter} from 'react-router'
-import {reduxForm, Field, FieldArray} from 'redux-form'
+import {reduxForm, FieldArray} from 'redux-form'
 import {gql, connectGraph} from 'react-graphql'
-import {formField, formInput, Form, FormButton, Button, ContentWithRight, SegmentedRows, FixedWidth} from 'ui'
+import {TextInputField, FormGroup, FormGroupField, TextInput, Page, PageHeader, Form, FormButton, Button, ContentWithRight, Stacked, FixedWidth} from 'ui'
 import * as actions from './actions'
 
 export default compose(
@@ -24,21 +24,30 @@ export default compose(
   }),
   withRouter,
 )(({ library, ...props }) => (
-  <div>
-    <h1>Edit {library.name}</h1>
+  <Page title={`Edit ${library.name}`}>
+    <PageHeader>Edit {library.name}</PageHeader>
 
     <EditLibraryForm initialValues={library} onSubmit={actions.editLibrary.bind(null, library.id, props.router)} />
-  </div>
+  </Page>
 ))
 
 const EditLibraryForm = reduxForm({
   form: 'editLibrary',
 })(props => (
   <Form onSubmit={props.handleSubmit}>
-    <Field label="Name" component={formField} type="text" name="name" className="pt-large" />
+    <FormGroupField
+      label="Name"
+      name="name"
+      input={<TextInput size="large" />}
+    />
 
-    <label>Ignore file regex patterns</label>
-    <FixedWidth width={300}><FieldArray name="ignorePatterns" component={renderIgnorePatterns} /></FixedWidth>
+    <FixedWidth width={300}>
+      <FormGroup
+        label="Ignore file regex patterns"
+      >
+        <FieldArray name="ignorePatterns" component={renderIgnorePatterns} />
+      </FormGroup>
+    </FixedWidth>
 
     <hr />
 
@@ -47,15 +56,15 @@ const EditLibraryForm = reduxForm({
 ))
 
 const renderIgnorePatterns = ({ fields }) => (
-  <SegmentedRows pad>
+  <Stacked>
     {fields.map((pattern, index) => (
       <div key={index}>
         <ContentWithRight
-          content={<Field component={formInput} type="text" name={pattern} placeholder="some regex pattern" className="pt-fill" />}
+          content={<TextInputField name={pattern} placeholder="some regex pattern" />}
           right={<Button onClick={() => fields.remove(index)} iconName="cross" />}
         />
       </div>
     ))}
     <Button onClick={() => fields.push('')} text="Add" iconName="plus" />
-  </SegmentedRows>
+  </Stacked>
 )
