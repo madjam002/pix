@@ -38,3 +38,10 @@ table {
   margin: 0 !important;
 }
 
+.map-marker {
+  position: relative;
+  left: -10px;
+  top: -33px;
+  width: 20px;
+  height: 33px;
+}

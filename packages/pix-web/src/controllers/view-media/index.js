@@ -3,7 +3,7 @@ import moment from 'moment'
 import {compose} from 'recompose'
 import {withRouter} from 'react-router'
 import {gql, connectGraph} from 'react-graphql'
-import {HotkeysTarget, Hotkeys, Hotkey, Button} from 'ui'
+import {HotkeysTarget, Hotkeys, Hotkey, Button, Map} from 'ui'
 
 import styles from './index.less'
 
@@ -67,7 +67,6 @@ class extends React.PureComponent {
   render() {
     const { item } = this.props
     const exif = item.exif || {}
-    const coordsString = exif.latitude != null ? `${exif.latitude},${exif.longitude}` : null
 
     return (
       <div className={styles.lightbox}>
@@ -132,13 +131,8 @@ class extends React.PureComponent {
             </tbody>
           </table>
 
-          {coordsString != null && (
-            <img
-              width="350"
-              referrerPolicy="no-referrer"
-              className={styles.map}
-              src={`http://maps.googleapis.com/maps/api/staticmap?center=${coordsString}&zoom=14&scale=2&size=350x150&maptype=roadmap&format=jpg&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000label:%7C${coordsString}`}
-            />
+          {exif.latitude != null && (
+            <Map latitude={exif.latitude} longitude={exif.longitude} />
           )}
         </div>
 
