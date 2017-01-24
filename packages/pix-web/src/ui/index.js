@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import {Spinner} from '@blueprintjs/core'
 
 import styles from './index.less'
@@ -29,12 +28,6 @@ export const ContentWithRight = props => (
   <div className={styles.sideBySide} style={{ alignItems: props.align }}>
     <div className={styles.fill}>{props.content}</div>
     <div>{props.right}</div>
-  </div>
-)
-
-export const SegmentedRows = props => (
-  <div className={cx(styles.segmentedRows, props.pad && styles.padVertical)}>
-    {props.children}
   </div>
 )
 
