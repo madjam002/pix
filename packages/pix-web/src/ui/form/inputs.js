@@ -10,6 +10,7 @@ export const TextInput = props => (
     value={props.value}
     onChange={props.onChange}
     placeholder={props.placeholder}
+    leftIconName={props.leftIconName}
   />
 )
 
@@ -20,6 +21,7 @@ export const PasswordInput = props => (
     value={props.value}
     onChange={props.onChange}
     placeholder={props.placeholder}
+    leftIconName={props.leftIconName}
   />
 )
 
@@ -27,6 +29,14 @@ export const TextInputField = props => (
   <Field component={renderTextInput} {...props} />
 )
 
+export const PasswordInputField = props => (
+  <Field component={renderPasswordInput} {...props} />
+)
+
 const renderTextInput = ({ input, meta, ...rest }) => (
   <TextInput {...input} {...rest} />
+)
+
+const renderPasswordInput = ({ input, meta, ...rest }) => (
+  <PasswordInput {...input} {...rest} />
 )

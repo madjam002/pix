@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import {Field, reduxForm} from 'redux-form'
-import {Form, formField} from 'ui'
+import {reduxForm} from 'redux-form'
+import {Form, TextInputField, PasswordInputField, Stacked} from 'ui'
 import * as actions from './actions'
 
 import styles from './index.less'
@@ -15,9 +15,11 @@ const LoginForm = reduxForm({
 })(props => (
   <Form onSubmit={props.handleSubmit}>
     <div className={cx('pt-control-group pt-vertical', styles.login)}>
-      <Field placeholder="Username" name="username" leftIconName="pt-icon-person" className="pt-large" component={formField} />
-      <Field placeholder="Password" name="password" type="password" leftIconName="pt-icon-lock" className="pt-large" component={formField} />
-      <button type="submit" className="pt-button pt-large pt-intent-primary" disabled={props.submitting}>Login</button>
+      <Stacked>
+        <TextInputField name="username" placeholder="Username" leftIconName="pt-icon-person" size="large" />
+        <PasswordInputField name="password" placeholder="Password" leftIconName="pt-icon-lock" size="large" />
+        <button type="submit" className="pt-button pt-large pt-intent-primary pt-fill" disabled={props.submitting}>Login</button>
+      </Stacked>
     </div>
   </Form>
 ))
