@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import {InputGroup} from '@blueprintjs/core'
 import {Field} from 'redux-form'
+import {Stacked} from '../layout'
+import {ErrorText} from '../typography'
 
 export const TextInput = props => (
   <InputGroup
@@ -34,7 +36,12 @@ export const PasswordInputField = props => (
 )
 
 const renderTextInput = ({ input, meta, ...rest }) => (
-  <TextInput {...input} {...rest} />
+  <Stacked>
+    <TextInput {...input} {...rest} />
+    {meta != null && meta.touched && meta.error != null && (
+      <ErrorText>{meta.error}</ErrorText>
+    )}
+  </Stacked>
 )
 
 const renderPasswordInput = ({ input, meta, ...rest }) => (

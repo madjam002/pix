@@ -22,3 +22,7 @@ export const PageHeader = props => {
     <PageHeaderStyle>{props.children}</PageHeaderStyle>
   )
 }
+
+export const ErrorText = styled.span`
+  color: #DB3737;
+`

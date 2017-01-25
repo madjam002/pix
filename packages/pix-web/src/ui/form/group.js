@@ -1,7 +1,7 @@
 import React from 'react'
-import {omit} from 'lodash'
 import {Field} from 'redux-form'
 import {Stacked} from '../layout'
+import {ErrorText} from '../typography'
 
 export const FormGroup = ({ meta, ...props }) => (
   props.input != null
@@ -10,7 +10,9 @@ export const FormGroup = ({ meta, ...props }) => (
       <Stacked spaceBetween={0.5}>
         {props.label}
         {props.input}
-        {meta != null && meta.touched && ((meta.error && <span className="pt-intent-danger">{meta.error}</span>) || (meta.warning && <span>{meta.warning}</span>))}
+        {props.error != null && (
+          <ErrorText>{props.error}</ErrorText>
+        )}
       </Stacked>
     </label>
   )
@@ -18,19 +20,21 @@ export const FormGroup = ({ meta, ...props }) => (
     <Stacked spaceBetween={0.5}>
       {props.label}
       {props.children}
-      {meta != null && meta.touched && ((meta.error && <span className="pt-intent-danger">{meta.error}</span>) || (meta.warning && <span>{meta.warning}</span>))}
+      {props.error != null && (
+        <ErrorText>{props.error}</ErrorText>
+      )}
     </Stacked>
   )
 )
 
-export const FormGroupField = props => (
-  <Field component={renderFormGroupField} {...omit(props, ['input'])} inputElement={props.input} />
+export const FormGroupField = ({ input, ...props }) => (
+  <Field component={renderFormGroupField} {...props} inputElement={input} />
 )
 
 export const renderFormGroupField = ({ input, meta, inputElement, ...rest }) => (
   <FormGroup
     {...rest}
-    meta={meta}
+    error={meta != null && meta.touched && meta.error != null ? meta.error : null}
     input={React.cloneElement(inputElement, input)}
   />
 )
