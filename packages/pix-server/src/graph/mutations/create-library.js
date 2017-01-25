@@ -2,6 +2,9 @@ import {GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInputObjectType
 import invariant from 'invariant'
 import LibraryType from '../types/library'
 import Library from 'models/library'
+import {compileSchema} from 'core/schema'
+
+const validateSchema = compileSchema(require('schemas/library.json'))
 
 const OutputType = new GraphQLObjectType({
   name: 'CreateLibraryPayload',
@@ -39,6 +42,8 @@ export default {
 
 async function runMutation(args, req) {
   invariant(!!req.user, 'Not logged in')
+
+  await validateSchema(args.library)
 
   const library = new Library(args.library)
   library.owner = req.user._id

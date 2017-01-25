@@ -72,6 +72,12 @@ app.get('/full-img', require('./routes/full-img').default)
 app.use('/graph', graphQLHTTP({
   schema,
   graphiql: true,
+  formatError: error => ({
+    message: error.message,
+    locations: error.locations,
+    stack: error.stack,
+    errors: error.originalError && error.originalError.errors,
+  }),
 }))
 
 app.use('/img/thumb', express.static(path.join(config.dataPath, 'thumbnails')))

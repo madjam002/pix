@@ -1,8 +1,11 @@
 import {GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInputObjectType, GraphQLList, GraphQLID} from 'graphql'
 import invariant from 'invariant'
+import {compileSchema} from 'core/schema'
 import {idFromGlobalId} from 'core/id'
 import LibraryType from '../types/library'
 import Library from 'models/library'
+
+const validateSchema = compileSchema(require('schemas/library.json'))
 
 const OutputType = new GraphQLObjectType({
   name: 'EditLibraryPayload',
@@ -49,6 +52,7 @@ async function runMutation(args, req) {
 
   Object.assign(library, args.library)
 
+  await validateSchema(library.toObject())
   await library.save()
 
   return { library }
