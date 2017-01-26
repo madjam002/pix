@@ -1,8 +1,9 @@
 import {gql} from 'react-graphql'
-import {runQuery, queryToCache} from 'core/api'
+import {browserHistory} from 'react-router'
+import {runMutation, queryToCache} from 'core/api'
 
 export const addUser = async data => {
-  await runQuery(gql`
+  const res = await runMutation(gql`
     mutation ($user: CreateUserInput!) {
       createUser(user: $user) {
         user { id }
@@ -20,4 +21,8 @@ export const addUser = async data => {
       }
     }
   `)
+
+  if (res.data.createUser.user != null) {
+    browserHistory.push('/admin')
+  }
 }

@@ -1,7 +1,9 @@
 import React from 'react'
 import {createGraphQLContext} from 'react-graphql'
+import {SubmissionError} from 'redux-form'
 import {print} from 'graphql-tag/printer'
 import {LoadingScreen} from 'ui'
+import {toastError} from 'core/toaster'
 
 const context = createGraphQLContext({
   defaultRenderLoading: props => <LoadingScreen />,
@@ -33,6 +35,20 @@ export async function runQuery(queryObj, variables) {
   }
 
   return result
+}
+
+export async function runMutation(queryObj, variables) {
+  const res = await runQuery(queryObj, variables)
+
+  if (res.errors && res.errors[0]) {
+    if (res.errors[0].errors != null) {
+      throw new SubmissionError(res.errors[0].errors)
+    }
+
+    if (res.errors[0].message != null) {
+      return toastError(res.errors[0].message)
+    }
+  }
 }
 
 export async function queryToCache(query, variables) {

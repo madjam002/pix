@@ -1,10 +1,9 @@
 import {gql} from 'react-graphql'
-import {SubmissionError} from 'redux-form'
 import {browserHistory} from 'react-router'
-import {runQuery, queryToCache} from 'core/api'
+import {runMutation, queryToCache} from 'core/api'
 
 export const addLibrary = async data => {
-  const res = await runQuery(gql`
+  const res = await runMutation(gql`
     mutation ($library: CreateLibraryInput!) {
       createLibrary(library: $library) {
         library { id }
@@ -13,10 +12,6 @@ export const addLibrary = async data => {
   `, {
     library: data,
   })
-
-  if (res.errors && res.errors[0].errors != null) {
-    throw new SubmissionError(res.errors[0].errors)
-  }
 
   await queryToCache(gql`
     query {
