@@ -7,11 +7,26 @@
   background-color: #10161A;
   padding: 25px;
   display: flex;
+
+  @media (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 5;
 }
 
 .imageContent {
   flex: 1;
   position: relative;
+
+  @media (max-width: 1000px) {
+    height: 100vh;
+  }
 
   .navigationControls {
     position: absolute;
@@ -52,6 +67,10 @@
   width: 400px;
   background-color: #182026;
   padding: 25px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 
   .sidebarHeader {
     margin-bottom: 30px;
