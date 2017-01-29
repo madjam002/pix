@@ -1,0 +1,11 @@
+{
+  "name": "@pix/schema",
+  "version": "1.0.0",
+  "private": true,
+  "main": "lib/index.js",
+  "author": "Jamie Greeff <jamie@greeff.me>",
+  "license": "AGPL",
+  "dependencies": {
+    "passport-local-mongoose": "^4.0.0"
+  }
+}

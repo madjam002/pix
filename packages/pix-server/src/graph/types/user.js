@@ -1,5 +1,5 @@
 import {GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString} from 'graphql'
-import {toGlobalId} from 'core/id'
+import {toGlobalId} from '@pix/core'
 import NodeInterface from '../interfaces/node'
 
 const UserType = new GraphQLObjectType({

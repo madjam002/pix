@@ -1,0 +1,8 @@
+{
+  "presets": ["es2015", "stage-1"],
+  "plugins": [
+    ["module-alias", [
+      { "src": "./src/service", "expose": "service" }
+    ]]
+  ]
+}

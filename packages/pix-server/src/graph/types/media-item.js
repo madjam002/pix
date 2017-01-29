@@ -1,10 +1,8 @@
 import {GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLFloat} from 'graphql'
-import {toGlobalId} from 'core/id'
+import {toGlobalId} from '@pix/core'
 import NodeInterface from '../interfaces/node'
 import config from '../../config'
-import MediaItemModel from 'models/media-item'
-import Library from 'models/library'
-import Folder from 'models/folder'
+import {Library, MediaItem as MediaItemModel, Folder} from '@pix/schema'
 
 import LibraryItemInterface from '../interfaces/library-item'
 import LibraryType from './library'

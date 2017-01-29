@@ -1,4 +1,4 @@
-import {fromGlobalId} from 'core/id'
+import {fromGlobalId} from '@pix/core'
 import nodeTypeMap from '../node-type-map'
 
 export default async function nodeResolver(globalId, viewer) {

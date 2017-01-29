@@ -1,9 +1,13 @@
+import 'babel-polyfill'
+import bluebird from 'bluebird'
 import mongoose from 'mongoose'
-import {idFromGlobalId} from 'core/id'
+import {idFromGlobalId} from '@pix/core'
 import indexLibrary from './indexer'
 import processItem from './indexer/process'
-import kue from '../service/kue'
-import config from '../config'
+import kue from 'service/kue'
+import config from './config'
+
+bluebird.promisifyAll(require('kue').Job.prototype)
 
 mongoose.connect(config.mongoUri)
 
@@ -22,6 +26,7 @@ function wrap(fn) {
 }
 
 kue.process('library:index', wrap(async job => {
+  console.log('Got index', job)
   const id = idFromGlobalId(job.data.libraryId, 'Library')
 
   await indexLibrary(id, job)

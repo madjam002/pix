@@ -1,7 +1,7 @@
 import mongoose, {Schema} from 'mongoose'
 import passportLocalMongoose from 'passport-local-mongoose'
 
-export const Roles = {
+const Roles = {
   ADMIN: 'admin',
   USER: 'user',
 }
@@ -12,4 +12,7 @@ const User = new Schema({
 
 User.plugin(passportLocalMongoose)
 
-export default mongoose.model('User', User)
+const UserModel = mongoose.model('User', User)
+UserModel.Roles = Roles
+
+export default UserModel

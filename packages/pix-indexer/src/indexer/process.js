@@ -5,7 +5,7 @@ import {imageSize} from './util'
 import {genThumbnail, genImageColour} from './image'
 import {ensureFoldersForPath, ensureFoldersHaveCover} from './folder'
 
-import MediaItem from 'models/media-item'
+import {MediaItem} from '@pix/schema'
 
 export default async function processItem(payload) {
   const { name, file, path: fullPath, libraryId } = payload

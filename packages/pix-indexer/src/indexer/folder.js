@@ -1,6 +1,6 @@
 import path from 'path'
 import {getLock} from 'service/lock'
-import Folder from '../../models/folder'
+import {Folder} from '@pix/schema'
 
 export async function ensureFoldersForPath(folderPath, libraryId) {
   if (folderPath === '.') {

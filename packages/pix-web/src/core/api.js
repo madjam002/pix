@@ -16,7 +16,7 @@ const context = createGraphQLContext({
 export default context
 
 export async function runQuery(queryObj, variables) {
-  const res = await fetch('/graph', {
+  const res = await fetch(`${window._config.serverEndpoint}/graph`, {
     method: 'POST',
     credentials: 'include',
     headers: {

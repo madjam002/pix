@@ -1,9 +1,8 @@
 import sharp from 'sharp'
-import {idFromGlobalId} from 'core/id'
+import {idFromGlobalId} from '@pix/core'
 import path from 'path'
 import invariant from 'invariant'
-import MediaItem from 'models/media-item'
-import Library from 'models/library'
+import {MediaItem, Library} from '@pix/schema'
 
 export default async (req, res) => {
   const id = idFromGlobalId(req.query.id, 'MediaItem')

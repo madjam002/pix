@@ -7,3 +7,6 @@ lib
 bundle.config.js
 bundle.js
 bundle.js.map
+example/**/*.jpg
+.env
+devdata

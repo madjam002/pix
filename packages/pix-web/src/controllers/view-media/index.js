@@ -86,7 +86,7 @@ class extends React.PureComponent {
             <img src={item.thumbnail} className={styles.image} width={item.width} height={item.height} />
           </div>
           {/* Full image (delay so that we don't render if user is quickly scrubbing through photos) */}
-          <DelayedFullImageRenderer src={`/full-img?id=${item.id}`} ignoreDelay={!this.shouldDelayFullImageRender} />
+          <DelayedFullImageRenderer src={`${window._config.serverEndpoint}/full-img?id=${item.id}`} ignoreDelay={!this.shouldDelayFullImageRender} />
 
           <div className={styles.navigationControls}>
             {item.previous != null ? (

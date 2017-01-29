@@ -1,5 +1,5 @@
 import {GraphQLObjectType, GraphQLSchema, GraphQLBoolean, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLList} from 'graphql'
-import {idFromGlobalId} from 'core/id'
+import {idFromGlobalId} from '@pix/core'
 import {guardFieldAdmin} from './guard'
 import {nodeField} from './interfaces/node'
 import ViewerType from './types/viewer'
@@ -7,8 +7,7 @@ import {getState} from '../state'
 
 import UserType from './types/user'
 
-import User from 'models/user'
-import Folder from 'models/folder'
+import {User, Folder} from '@pix/schema'
 
 import nodeResolver from './resolvers/node'
 

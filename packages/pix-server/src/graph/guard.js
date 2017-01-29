@@ -1,4 +1,4 @@
-import {Roles} from 'models/user'
+import {User} from '@pix/schema'
 
 export function createFieldGuarder(checker) {
   return function (resolver) {
@@ -17,5 +17,5 @@ export const guardFieldLoggedInOnly = createFieldGuarder(
 )
 
 export const guardFieldAdmin = createFieldGuarder(
-  (node, args, req) => req.user != null && req.user.role === Roles.ADMIN,
+  (node, args, req) => req.user != null && req.user.role === User.Roles.ADMIN,
 )

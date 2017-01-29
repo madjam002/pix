@@ -1,7 +1,7 @@
 import {toastError} from 'core/toaster'
 
 export async function login({ username, password}) {
-  const res = await fetch('/api/login', {
+  const res = await fetch(`${window._config.serverEndpoint}/api/login`, {
     method: 'POST',
     credentials: 'include',
     headers: {

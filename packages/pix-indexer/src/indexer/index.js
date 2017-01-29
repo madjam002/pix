@@ -1,10 +1,8 @@
 import glob from 'glob-promise'
 import path from 'path'
-import Library from 'models/library'
+import {Library, Folder, MediaItem} from '@pix/schema'
 import kue from 'service/kue'
 import Bluebird from 'bluebird'
-import Folder from 'models/folder'
-import MediaItem from 'models/media-item'
 import {cleanThumbnails} from './image'
 
 export default async function indexLibrary(libraryId, job) {

@@ -1,10 +1,10 @@
 import {GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInputObjectType} from 'graphql'
 import invariant from 'invariant'
 import LibraryType from '../types/library'
-import Library from 'models/library'
-import {compileSchema} from 'core/schema'
+import {Library} from '@pix/schema'
+import {compileSchema} from '@pix/core'
 
-const validateSchema = compileSchema(require('schemas/library.json'))
+const validateSchema = compileSchema(require('../../schemas/library.json'))
 
 const OutputType = new GraphQLObjectType({
   name: 'CreateLibraryPayload',

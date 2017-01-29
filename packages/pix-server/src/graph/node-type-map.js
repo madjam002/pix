@@ -1,7 +1,9 @@
-import UserModel from 'models/user'
-import LibraryModel from 'models/library'
-import FolderModel from 'models/folder'
-import MediaItemModel from 'models/media-item'
+import {
+  User as UserModel,
+  Library as LibraryModel,
+  Folder as FolderModel,
+  MediaItem as MediaItemModel,
+} from '@pix/schema'
 
 const map = {
   User: {

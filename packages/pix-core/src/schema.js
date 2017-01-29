@@ -1,5 +1,5 @@
 import Ajv from 'ajv'
-import {formatErrors} from 'util/errors'
+import {formatErrors} from './util/errors'
 
 const ajv = new Ajv({
   v5: true,

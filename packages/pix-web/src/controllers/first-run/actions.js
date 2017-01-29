@@ -6,7 +6,7 @@ export async function createAdminAccount({ username, password, confirmPassword }
     throw new SubmissionError({ confirmPassword: 'Passwords do not match' })
   }
 
-  const res = await fetch('/api/create-admin-account', {
+  const res = await fetch(`${window._config.serverEndpoint}/api/create-admin-account`, {
     method: 'POST',
     credentials: 'include',
     headers: {

@@ -1,8 +1,0 @@
-{
-  "services": ["server", "worker"],
-  "develop": {
-    "mounts": {
-      "./": "/usr/src/app/pix-server"
-    }
-  }
-}

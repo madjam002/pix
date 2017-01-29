@@ -1,3 +1,11 @@
 {
-  "presets": ["es2015", "stage-1"]
+  "presets": ["es2015", "stage-1"],
+  "plugins": [
+    ["module-alias", [
+      { "src": "./src/graph", "expose": "graph" },
+      { "src": "./src/routes", "expose": "routes" },
+      { "src": "./src/schemas", "expose": "schemas" },
+      { "src": "./src/service", "expose": "service" }
+    ]]
+  ]
 }

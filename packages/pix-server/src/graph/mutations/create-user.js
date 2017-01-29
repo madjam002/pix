@@ -1,7 +1,7 @@
 import {GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInputObjectType} from 'graphql'
 import invariant from 'invariant'
 import UserType from '../types/user'
-import User, {Roles} from 'models/user'
+import {User} from '@pix/schema'
 
 const OutputType = new GraphQLObjectType({
   name: 'CreateUserPayload',
@@ -39,7 +39,7 @@ export default {
 
 async function runMutation(args, req) {
   invariant(!!req.user, 'Not logged in')
-  invariant(req.user.role === Roles.ADMIN, 'Not admin')
+  invariant(req.user.role === User.Roles.ADMIN, 'Not admin')
 
   const user = new User(args.user)
   await new Promise((resolve, reject) => User.register(user, args.user.password, err => err != null ? reject(err) : resolve()))

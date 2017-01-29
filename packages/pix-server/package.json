@@ -2,52 +2,39 @@
   "name": "@pix/server",
   "version": "1.0.0",
   "private": true,
-  "main": "server.js",
-  "options": {
-    "babel": "--out-dir lib/ --copy-files src"
-  },
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf lib && babel $npm_package_options_babel",
-    "watch": "rm -rf lib && babel --watch $npm_package_options_babel"
+    "start": "nodemon --preserve-symlinks -r dotenv/config ."
   },
   "author": "Jamie Greeff <jamie@greeff.me>",
   "license": "AGPL",
   "dependencies": {
-    "ajv": "^4.11.2",
-    "babel-polyfill": "^6.16.0",
+    "@pix/core": "*",
+    "@pix/schema": "*",
+    "babel-polyfill": "^6.22.0",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
-    "canvas": "^1.6.2",
-    "chroma-js": "^1.2.1",
     "connect-redis": "^3.1.0",
-    "exif-reader": "^1.0.1",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
-    "express-graphql": "^0.5.4",
+    "express-graphql": "^0.6.2",
     "express-session": "^1.14.2",
-    "fs-promise": "^1.0.0",
-    "glob-promise": "^2.0.0",
-    "graphql": "^0.8.2",
-    "graphql-relay": "^0.4.4",
+    "graphql": "^0.9.1",
+    "graphql-relay": "^0.5.1",
     "invariant": "^2.2.2",
-    "jimp": "^0.2.27",
     "kue": "^0.11.5",
     "lodash": "^4.17.2",
     "mkdirp-promise": "^4.0.1",
-    "mongoose": "^4.7.0",
+    "mongoose": "^4.7.9",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^4.0.0",
     "redis": "^2.6.3",
-    "redislock": "^1.2.0",
     "sharp": "^0.16.2",
     "socket.io": "^1.6.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-1": "^6.16.0",
-    "http-proxy-middleware": "^0.17.2",
+    "dotenv": "^4.0.0",
     "nodemon": "^1.11.0"
   }
 }

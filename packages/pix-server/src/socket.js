@@ -1,4 +1,4 @@
-import User from './models/user'
+import {User} from '@pix/schema'
 import kue from 'service/kue'
 
 export default async (socket, io) => {

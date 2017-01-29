@@ -1,0 +1,31 @@
+{
+  "name": "@pix/indexer",
+  "version": "1.0.0",
+  "private": true,
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --preserve-symlinks -r dotenv/config ."
+  },
+  "author": "Jamie Greeff <jamie@greeff.me>",
+  "license": "AGPL",
+  "dependencies": {
+    "@pix/core": "*",
+    "@pix/schema": "*",
+    "babel-polyfill": "^6.22.0",
+    "bluebird": "^3.4.7",
+    "canvas": "^1.6.2",
+    "chroma-js": "^1.2.1",
+    "exif-reader": "^1.0.2",
+    "fs-promise": "^1.0.0",
+    "glob-promise": "^3.1.0",
+    "kue": "^0.11.5",
+    "mkdirp-promise": "^5.0.0",
+    "mongoose": "^4.7.8",
+    "redislock": "^1.2.1",
+    "sharp": "^0.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
+  }
+}

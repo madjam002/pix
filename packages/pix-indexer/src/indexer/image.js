@@ -2,7 +2,7 @@ import chroma from 'chroma-js'
 import fs from 'fs-promise'
 import path from 'path'
 import sharp from 'sharp'
-import config from 'config'
+import config from '../config'
 import mkdirp from 'mkdirp-promise'
 import ColorThief from './color-thief'
 

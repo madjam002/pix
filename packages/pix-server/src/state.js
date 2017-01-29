@@ -1,4 +1,4 @@
-import State from './models/state'
+import {State} from '@pix/schema'
 
 const initialAppState = {
   firstRun: true,

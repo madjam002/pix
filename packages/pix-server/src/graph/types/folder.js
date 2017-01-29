@@ -1,9 +1,9 @@
 import {GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLList, GraphQLFloat} from 'graphql'
-import {toGlobalId} from 'core/id'
+import {toGlobalId} from '@pix/core'
 import NodeInterface from '../interfaces/node'
 import config from '../../config'
 
-import Library from 'models/library'
+import {Library} from '@pix/schema'
 
 import LibraryItemInterface from '../interfaces/library-item'
 import LibraryType from './library'
@@ -55,8 +55,7 @@ const FolderType = new GraphQLObjectType({
 
 export default FolderType
 
-import Folder from 'models/folder'
-import MediaItem from 'models/media-item'
+import {MediaItem, Folder} from '@pix/schema'
 
 const generateItems = async (folder) => {
   const folders = await Folder.find({ parent: folder._id }).sort({ nameLower: 1 })
