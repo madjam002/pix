@@ -132,7 +132,9 @@ class extends React.PureComponent {
           </table>
 
           {exif.latitude != null && (
-            <Map latitude={exif.latitude} longitude={exif.longitude} />
+            <DeferRendering>
+              <Map latitude={exif.latitude} longitude={exif.longitude} />
+            </DeferRendering>
           )}
         </div>
 
@@ -207,5 +209,23 @@ class DelayedFullImageRenderer extends React.Component {
         <img {...this.props} className={styles.image} />
       </div>
     )
+  }
+}
+
+class DeferRendering extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { shouldRender: false }
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ shouldRender: true }), 50) // eslint-disable-line
+  }
+
+  render() {
+    if (!this.state.shouldRender) return <div />
+
+    return this.props.children
   }
 }
