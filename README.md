@@ -3,6 +3,14 @@ Pix
 
 **Do not use unless you know what you're doing - this project is a work in progress!**
 
+---
+
+*UPDATE March 2017*
+
+Sorry I haven't been working on this recently, been super busy. I'm hoping to pick this up around the end of April as I should have more time then, thanks!
+
+---
+
 Pix aims to be a self-hosted multi-user photo gallery solution similar to Google Photos. Give it a folder of photos and it will index them, so you get to stay in control of your photos on the file system.
 
 Ongoing discussion on the future of this project at https://www.reddit.com/r/selfhosted/comments/5fwcvf/open_source_familypersonal_photo_gallery_software/
